@@ -1,5 +1,4 @@
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
 public class Feladatok {
@@ -25,6 +24,8 @@ public class Feladatok {
  //KONSTRUKTORBAN HIVUNK MINDENT
     public Feladatok() {
         fajlbairas(nobelDijasok);
+        fajlbaolvasas();
+        dij();
     }
 
     public  void fajlbairas(String[] nobelDijasok) {
@@ -41,8 +42,36 @@ public class Feladatok {
     }
 
     public  void fajlbaolvasas() {
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("nobel.csv"));
+            br.readLine();
+            String sor = br.readLine();
+            while (sor!=null){
+                lista.add(new Nobel(sor));
+                sor = br.readLine();
 
+            }
+            for (Nobel item : lista){
+                System.out.println(item);
+            }
+
+
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
+
+    public void dij(){
+        for (Nobel item : lista){
+            if (item.getTeljesNev().equals("Arthur B. McDonald")){
+                System.out.println("3. feladat: " + item.getTipus());
+            }
+        }
+    }
+
+
 
 
 }
